@@ -1,10 +1,10 @@
 import xlrd
 import mysql.connector
 import pandas as pd
-import create_table
-import dtype
-import create_dataframe
-
+#import create_table
+#import dtype
+#import create_dataframe
+import mods
 #location of the file
 loc = None
 
@@ -44,11 +44,14 @@ sheet_num = wb.nsheets          # sheet_num is number of sheets in excel file
 sheet_names = wb.sheet_names()      # sheet_n stores names of the sheets
 #print(sheet_n)
 
-m = 0       #variable used for iterating through the sheets in excel file
+m = 0       # variable used for iterating through the sheets in excel file
+i = 0       # variable used for iterating through column names
+dtype = 0   # variable used for determining column datatype
+ite = 1     # variable used for iteration control
 
-temp_table = pd.DataFrame()    # for temporarily holding the table in a dataframe
-cell_val = []      # for temporarily holding the 
-
+temp_table = pd.DataFrame()     # for temporarily holding the table in a dataframe
+cell_val = []                   # for temporarily holding the 
+cmd_table = None                #to store the sql command
 
 for m in range(0, sheet_num):       #for iterating through all the sheets
 
@@ -59,9 +62,9 @@ for m in range(0, sheet_num):       #for iterating through all the sheets
 
     sheet_n = str(sheet_names[m])       # To retrieve sheet name
 
-    print(sheet_n)
+    print("\n\n\n",sheet_n)      # sheet_n is the table name
     print(col, " columns,")
-    print((rows-1), " rows.")
+    print((rows-1), " rows.\n")
 
     sheet_n = sheet_n.lower()                   # To make the table name safe for mysql
     sheet_n = sheet_n.replace(" ", "_")         # replaces whitespace with underscore
@@ -71,23 +74,17 @@ for m in range(0, sheet_num):       #for iterating through all the sheets
     """
     Create a dataframe with all the table data
     """
-    temp_table = create_dataframe.create_dataframe(col, rows, sheet)
+    temp_table = mods.create_dataframe(col, rows, sheet)
+    #print(temp_table.columns.values.tolist())
+    i = 0 # to iterate through columns
+    ite = 1 # to iterate create table function
 
-
-    #this bottom part is now shifted to create_dataframe.py
-    """
-    for i in range (0, col):
-        for j in range (1, rows):
-            cell_val.append(sheet.cell_value(j, i))
-            print(cell_val)
-        temp_table[str(sheet.cell_value(0,i))] = cell_val
-        print(cell_val)
-        cell_val = []
-    print(temp_table)
-
-    temp_table = None
-    temp_table = pd.DataFrame()
-    """
+    for i in (temp_table.columns.values.tolist()):
+        dtype = mods.col_dtype(temp_table[i])
+        #print(i, dtype)
+        cmd_table = mods.create_table(sheet_n, ite, i, dtype)
+        print(cmd_table)
+        ite += 1
 
 
     """
