@@ -93,3 +93,20 @@ def create_dataframe(col, rows, sheet):
         cell_val = []
     #print(temp_table,"\n\n")
     return temp_table
+
+def row_values_to_string(sd):
+    #print(sd)
+    str1 = ""
+    temp = None
+    for i in range(0, len(sd)):
+       temp = sd[i]
+       #print(type(temp))
+       if str(type(temp)) == "<class 'str'>":
+        temp = '"'+ temp + '"'
+       if temp == "":
+        temp = "NULL"
+       str1 = str1 + str(temp) +", "
+    str1 = str1[0:-2]
+    #print(str1)
+    return str1
+
