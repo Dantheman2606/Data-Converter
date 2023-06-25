@@ -1,6 +1,6 @@
 import customtkinter as ctk
 from tkinter.filedialog import askopenfilename
-import test2
+import main
 
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("dark-blue")
@@ -66,7 +66,7 @@ checkbox = ctk.CTkCheckBox(master=frame, text="Create New Database", variable=va
 checkbox.pack(pady=12, padx=10)
 
 def main():
-    display_text = test2.dtc(loc, hstn_var.get(), usrn_var.get(), pwd_var.get(), dtb_var.get())
+    display_text = main.dtc(loc, hstn_var.get(), usrn_var.get(), pwd_var.get(), dtb_var.get())
     display_label = ctk.CTkLabel(master=frame, text=display_text, font=("Verdana", 9), text_color="grey")
     display_label.pack()
 
