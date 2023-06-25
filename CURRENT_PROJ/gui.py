@@ -1,5 +1,6 @@
 import customtkinter as ctk
 from tkinter.filedialog import askopenfilename
+import test2
 
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("dark-blue")
@@ -30,6 +31,7 @@ def choose():
     loc = filename
     display_file = ctk.CTkLabel(master=frame, text=loc)
     display_file.pack(padx=10, pady=10)
+
 
 label1 = ctk.CTkLabel(master=frame, text="Data Transfer from Excel to MySQL", font=("Roboto", 26))
 label1.pack(pady=12, padx=10)
@@ -63,19 +65,15 @@ var = ctk.IntVar()
 checkbox = ctk.CTkCheckBox(master=frame, text="Create New Database", variable=var)
 checkbox.pack(pady=12, padx=10)
 
+def main():
+    display_text = test2.dtc(loc, hstn_var.get(), usrn_var.get(), pwd_var.get(), dtb_var.get())
+    display_label = ctk.CTkLabel(master=frame, text=display_text, font=("Verdana", 9), text_color="grey")
+    display_label.pack()
+
+data_transfer = ctk.CTkButton(master=frame, text="Transfer the Data", width=20, command= main)
+data_transfer.pack(padx=5, pady=5)
+
 close = ctk.CTkButton(root, text="Close Window", width=10, command= root.destroy)
 close.pack(padx=5, pady=5)
 
 root.mainloop()
-
-hstn = hstn_var.get()
-usrn = usrn_var.get()
-dtb = dtb_var.get()
-pwd = pwd_var.get()
-varc = var.get()
-
-print(hstn)
-print(usrn)
-print(dtb)
-print(pwd)
-print(varc)
