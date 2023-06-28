@@ -1,6 +1,6 @@
 import customtkinter as ctk
 from tkinter.filedialog import askopenfilename
-import main
+import master
 
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("dark-blue")
@@ -48,17 +48,17 @@ hostname.pack(pady=12, padx=10)
 
 label4 = ctk.CTkLabel(master=frame, text="Enter Username:", font=("Verdana", 16), text_color="grey")
 label4.pack()
-username = ctk.CTkEntry(master=frame, width=300, placeholder_text="Username", textvariable=usrn_var)
+username = ctk.CTkEntry(master=frame, width=300, placeholder_text="Username", textvariable=usrn_var, font=("Verdana", 15))
 username.pack(pady=12, padx=10)
 
 label5 = ctk.CTkLabel(master=frame, text="Enter Database name:", font=("Verdana", 16), text_color="grey")
 label5.pack()
-database = ctk.CTkEntry(master=frame, width=300, placeholder_text="Database name", textvariable=dtb_var)
+database = ctk.CTkEntry(master=frame, width=300, placeholder_text="Database name", textvariable=dtb_var, font=("Verdana", 15))
 database.pack(pady=12, padx=10)
 
 label6 = ctk.CTkLabel(master=frame, text="Enter Password:", font=("Verdana", 16), text_color="grey")
 label6.pack()
-password = ctk.CTkEntry(master=frame, width=300, placeholder_text="Password", show = "*", textvariable=pwd_var)
+password = ctk.CTkEntry(master=frame, width=300, placeholder_text="Password", show = "*", textvariable=pwd_var,font=("Verdana", 15))
 password.pack(pady=12, padx=10)
 
 var = ctk.IntVar()
@@ -66,7 +66,7 @@ checkbox = ctk.CTkCheckBox(master=frame, text="Create New Database", variable=va
 checkbox.pack(pady=12, padx=10)
 
 def main():
-    display_text = main.dtc(loc, hstn_var.get(), usrn_var.get(), pwd_var.get(), dtb_var.get())
+    display_text = master.dtc(loc, hstn_var.get(), usrn_var.get(), pwd_var.get(), dtb_var.get())
     display_label = ctk.CTkLabel(master=frame, text=display_text, font=("Verdana", 9), text_color="grey")
     display_label.pack()
 
