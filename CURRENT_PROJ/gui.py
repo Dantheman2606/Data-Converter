@@ -24,7 +24,13 @@ pwd_var = ctk.StringVar(root)
 dtb_var = ctk.StringVar(root)
 
 def choose():
-    filename = askopenfilename()
+
+    filename = askopenfilename(
+        title='Open a Excel file',
+        #initialdir='/',
+        filetypes=[("Excel files", ".xlsx .xls"),
+                    ('CSV files',"*.csv")]
+    )
     # show an "Open" dialog box and return the path to the selected file
     # print(filename)
     global loc
@@ -66,8 +72,8 @@ checkbox = ctk.CTkCheckBox(master=frame, text="Create New Database", variable=va
 checkbox.pack(pady=12, padx=10)
 
 def main():
-    display_text = master.dtc(loc, hstn_var.get(), usrn_var.get(), pwd_var.get(), dtb_var.get())
-    display_label = ctk.CTkLabel(master=frame, text=display_text, font=("Verdana", 9), text_color="grey")
+    display_text, dtfont = master.dtc(loc, hstn_var.get(), usrn_var.get(), pwd_var.get(), dtb_var.get())
+    display_label = ctk.CTkLabel(master=frame, text=display_text, font=dtfont, text_color="grey")
     display_label.pack()
 
 data_transfer = ctk.CTkButton(master=frame, text="Transfer the Data", width=20, command= main)
