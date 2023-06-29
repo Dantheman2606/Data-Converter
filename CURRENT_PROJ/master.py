@@ -82,7 +82,7 @@ def dtc(loc, hostname, username, pwd, dtb):
             """
             temp_table = mods.create_dataframe(col, rows, sheet)   # now temp_table holds a dataframe like the sheet in excel file
             # print(temp_table.columns.values.tolist())
-            print(temp_table)
+            #print(temp_table)
             i = 0  # to iterate through columns and rows
             ite = 1  # to iterate create table function
 
@@ -96,6 +96,8 @@ def dtc(loc, hostname, username, pwd, dtb):
                 col_nam = i.lower()
                 col_nam = col_nam.replace(" ", "_")
                 col_nam = col_nam.replace(".", "_")
+                col_nam = col_nam.replace("(", "_")
+                col_nam = col_nam.replace(")", "_")
                 cmd_table = mods.create_table(sheet_n, ite, col_nam , dtype)
                 # print(cmd_table)
                 ite += 1
@@ -106,8 +108,14 @@ def dtc(loc, hostname, username, pwd, dtb):
 
             # Now create a string of column names in the table
             col_str = ""
+            temp_i = ""
+            #print(temp_table.columns.values.tolist())
             for i in (temp_table.columns.values.tolist()):
-                col_str = col_str + i+ str(", ")
+                temp_i = str(i.replace(" ", "_"))
+                temp_i = temp_i.replace(".", "_")
+                temp_i = temp_i.replace("(", "_")
+                temp_i = temp_i.replace(")", "_")
+                col_str = col_str + temp_i+ str(", ")
                 #print(col_str)
             col_str = col_str[0:-2]     # string of all columns
 
