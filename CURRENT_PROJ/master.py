@@ -7,8 +7,6 @@ import mods
 def dtc(loc, hostname, username, pwd, dtb):
     # location of the file
     # loc = None
-
-
     display_text = ""
 
     try:
@@ -53,7 +51,6 @@ def dtc(loc, hostname, username, pwd, dtb):
         ite = 1     # variable used for iteration control
 
         temp_table = pd.DataFrame()     # for temporarily holding the table in a dataframe
-        cell_val = []                   # for temporarily holding the cell value
         cmd_table = None  # to store the sql command
         col_str = None                  # to store string of column names
         row_val = None                  # to store row strings
@@ -85,6 +82,7 @@ def dtc(loc, hostname, username, pwd, dtb):
             """
             temp_table = mods.create_dataframe(col, rows, sheet)   # now temp_table holds a dataframe like the sheet in excel file
             # print(temp_table.columns.values.tolist())
+            print(temp_table)
             i = 0  # to iterate through columns and rows
             ite = 1  # to iterate create table function
 
@@ -95,7 +93,10 @@ def dtc(loc, hostname, username, pwd, dtb):
                 dtype = mods.col_dtype(temp_table[i])
                 # print(i, dtype)
                 # create the table creation commands
-                cmd_table = mods.create_table(sheet_n, ite, i, dtype)
+                col_nam = i.lower()
+                col_nam = col_nam.replace(" ", "_")
+                col_nam = col_nam.replace(".", "_")
+                cmd_table = mods.create_table(sheet_n, ite, col_nam , dtype)
                 # print(cmd_table)
                 ite += 1
                 # executes the table creation commands
